@@ -1,9 +1,25 @@
 # orbi-face
 
 An animated, expressive face watchface for the Pebble Round 2 (**gabbro**),
-written in C using the Pebble SDK. The face blinks, winks, and reacts idly
-between digital time/date/battery readouts, with a battery-saver mode that
-freezes animation below 20%.
+written in C using the Pebble SDK. Inspired by the "Sphere"-style expressive
+robot faces, it blinks, winks, and idly glances around between showing the
+time, date, and battery level.
+
+<p align="center">
+  <img src="screenshots/orbi-face.png" width="220" alt="Orbi face watchface on the gabbro emulator">
+</p>
+
+## Features
+
+- A full library of expressions (blink, wink, angry, surprised, side-eye,
+  sleepy, happy, look-up, smirk) that ease smoothly between poses at ~30fps
+  rather than snapping.
+- Idle behaviour: the face wanders its gaze and blinks naturally on its own,
+  and cycles through its expressions once on startup.
+- A random expression plays out once a minute, tied to the clock tick.
+- **Battery saver**: below 20% charge (and not charging/plugged in), the
+  animation loop freezes on a still neutral face to save power, resuming
+  automatically once charged back up.
 
 ## Building & running
 
@@ -25,6 +41,7 @@ resolution-independent.
 
 ```
 src/c/           C source for the watchface
+screenshots/     Emulator screenshots used in this README
 package.json     Project metadata (UUID, platforms, resources, message keys)
 wscript          Build rules — usually no need to edit
 ```
