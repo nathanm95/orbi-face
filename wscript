@@ -22,6 +22,37 @@ def configure(ctx):
     """
     ctx.load('pebble_sdk')
 
+    # Verification affordances, never ship a bundle built with these set.
+    # The emulator follows the host clock and ignores attempts to set it,
+    # SELECT/BACK can't be sent reliably and touch can't be injected, so store
+    # shots are pinned at build time instead:
+    #   ORBI_SHOW_TIME=1008        always show 10:08
+    #   ORBI_FREEZE=<act>          play act <act> (ActId in anim.h) and hold it
+    #   ORBI_FREEZE_MS=<ms>        ...at this moment (default 0)
+    #   ORBI_LOOP=<act>            replay act <act> forever
+    #   ORBI_DEMO=1                the store GIF's run of acts, forever
+    #   ORBI_THEME=<n>             force a colour theme
+    #   ORBI_WEATHER=<kind>        fake the weather (WeatherKind in anim.h),
+    #   ORBI_TEMP=<c> ORBI_WIND=<kmh>   with this temperature and wind
+    #   ORBI_BATT=<pct>            fake the battery level
+    #   ORBI_DEBUG=1               draw render time and frame-loop state
+    defaults = {'ORBI_FREEZE_MS': '0', 'ORBI_TEMP': '14', 'ORBI_WIND': '8'}
+    flags = ('ORBI_SHOW_TIME', 'ORBI_FREEZE', 'ORBI_LOOP', 'ORBI_DEMO', 'ORBI_THEME',
+             'ORBI_WEATHER', 'ORBI_BATT', 'ORBI_DEBUG')
+    for flag in flags:
+        value = os.environ.get(flag)
+        if not value:
+            continue
+        for env in ctx.all_envs.values():
+            env.append_value('DEFINES', '%s=%d' % (flag, int(value)))
+            if flag == 'ORBI_FREEZE':
+                env.append_value('DEFINES', 'ORBI_FREEZE_MS=%d' % int(
+                    os.environ.get('ORBI_FREEZE_MS', defaults['ORBI_FREEZE_MS'])))
+            if flag == 'ORBI_WEATHER':
+                for extra in ('ORBI_TEMP', 'ORBI_WIND'):
+                    env.append_value('DEFINES', '%s=%d' % (extra, int(
+                        os.environ.get(extra, defaults[extra]))))
+
 
 def build(ctx):
     ctx.load('pebble_sdk')

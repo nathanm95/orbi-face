@@ -1,10 +1,14 @@
 {
   "name": "orbi-face",
   "author": "Nathan Marchant",
-  "version": "1.0.0",
-  "keywords": ["pebble-app"],
+  "version": "2.0.0",
+  "keywords": [
+    "pebble-app"
+  ],
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@rebble/clay": "^1.1.0"
+  },
   "pebble": {
     "displayName": "Orbi",
     "uuid": "56d01ac0-3344-43a7-a5bb-e155e4e5251b",
@@ -16,6 +20,50 @@
     "watchapp": {
       "watchface": true
     },
-    "messageKeys": []
+    "capabilities": [
+      "configurable",
+      "location"
+    ],
+    "messageKeys": [
+      "ClockFormat",
+      "LeadingZero",
+      "ClockStyle",
+      "DateFormat",
+      "ShowTemp",
+      "BatteryStyle",
+      "Live",
+      "ActEvery",
+      "SaverPct",
+      "Quiet",
+      "QuietStart",
+      "QuietEnd",
+      "WakeFlick",
+      "WakeTap",
+      "WakeRaise",
+      "Theme",
+      "Props",
+      "Seasonal",
+      "Hourly",
+      "Weather",
+      "Fahrenheit",
+      "BtAlert",
+      "WxCode",
+      "WxTemp",
+      "WxDay",
+      "WxWind",
+      "WxRequest"
+    ],
+    "resources": {
+      "media": [
+        { "type": "bitmap", "name": "PROP_SUNGLASSES", "file": "images/prop_sunglasses.png" },
+        { "type": "bitmap", "name": "PROP_BEANIE", "file": "images/prop_beanie.png" },
+        { "type": "bitmap", "name": "PROP_UMBRELLA", "file": "images/prop_umbrella.png" },
+        { "type": "bitmap", "name": "PROP_PARTYHAT", "file": "images/prop_partyhat.png" },
+        { "type": "bitmap", "name": "PROP_WITCHHAT", "file": "images/prop_witchhat.png" },
+        { "type": "bitmap", "name": "PROP_SANTAHAT", "file": "images/prop_santahat.png" },
+        { "type": "bitmap", "name": "PROP_NIGHTCAP", "file": "images/prop_nightcap.png" },
+        { "type": "bitmap", "name": "PROP_CLOUD", "file": "images/prop_cloud.png" }
+      ]
+    }
   }
 }
