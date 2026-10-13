@@ -5,6 +5,9 @@ emoji that lives on the Las Vegas Sphere. He's a glossy little sphere who
 looks around, laughs, sneezes, falls in love, puts shades on when it's sunny,
 holds an umbrella when it rains, and wears a nightcap at bedtime.
 
+On the Rebble appstore as
+[Orbi](https://apps.repebble.com/orbi_af0517c065c24fd7b83e9677) (v2.0.0).
+
 ![Orbi](store/gabbro_1_preview.gif)
 
 <p>
@@ -201,15 +204,23 @@ python3 tools/store_assets.py /tmp/orbi_rec     # GIF, screenshots, icons, banne
 `record_store.py` leaves a flag-free build behind, but check before
 releasing.
 
-To publish (not done yet), from a clean release build, after bumping
-`version` in `package.json` past whatever the store holds:
+## Releasing
+
+v2.0.0 is live on the store. It replaced v1 in place because it keeps v1's
+UUID. To ship an update, bump `version` in `package.json` past 2.0.0, then
+publish from a clean release build:
 
 ```bash
 pebble publish --non-interactive \
-  --description "A little orb with big feelings: weather, hats and faces" \
-  --icon-small store/icon_80x80.png --icon-large store/icon_144x144.png \
+  --release-notes "What changed" \
   --screenshots store/gabbro_*.{gif,png}
 ```
+
+Orbi already exists on the store, so `pebble publish` takes its existing-app
+path. The release goes live immediately, screenshots are added rather than
+replaced (remove old ones on the developer dashboard), and `--description` and
+`--icon-*` are ignored, so change those on the dashboard
+(`store/description.md`, `store/icon_*.png`).
 
 ## Target platform
 
